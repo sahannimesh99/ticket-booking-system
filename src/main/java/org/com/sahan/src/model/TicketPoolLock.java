@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/**
- * TicketPoolLock uses explicit ReentrantReadWriteLock for finer control.
- */
 public class TicketPoolLock {
     private final List<String> tickets;
     private final int maxCapacity;

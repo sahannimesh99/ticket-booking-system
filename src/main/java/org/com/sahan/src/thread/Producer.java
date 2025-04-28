@@ -3,9 +3,7 @@ package org.com.sahan.src.thread;
 
 import org.com.sahan.src.service.TicketService;
 
-/**
- * Producer adds tickets into the ticket pool.
- */
+// Producer adds tickets into the ticket pool.
 public class Producer implements Runnable {
     private final TicketService service;
     private volatile boolean running = true;

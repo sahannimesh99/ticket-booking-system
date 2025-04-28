@@ -3,9 +3,8 @@ package org.com.sahan.src.thread;
 
 import org.com.sahan.src.service.TicketService;
 
-/**
- * Reader checks how many tickets are available in the pool.
- */
+//Reader checks how many tickets are available in the pool.
+
 public class Reader implements Runnable {
     private final TicketService service;
     private volatile boolean running = true;

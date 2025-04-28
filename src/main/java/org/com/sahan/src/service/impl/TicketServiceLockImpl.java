@@ -4,9 +4,6 @@ package org.com.sahan.src.service.impl;
 import org.com.sahan.src.model.TicketPoolLock;
 import org.com.sahan.src.service.TicketService;
 
-/**
- * Service implementation using ReentrantReadWriteLock.
- */
 public class TicketServiceLockImpl implements TicketService {
     private final TicketPoolLock pool;
 

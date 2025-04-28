@@ -1,9 +1,9 @@
 package org.com.sahan.src.thread;
 
 import org.com.sahan.src.service.TicketService;
-/**
- * Consumer buys tickets from the ticket pool.
- */
+
+// Consumer buys tickets from the ticket pool.
+
 public class Consumer implements Runnable {
     private final TicketService service;
     private volatile boolean running = true;

@@ -43,7 +43,7 @@ public class TicketSystemCLI {
             }
 
             if (choice < 1 || choice > serviceNames.size()) {
-                System.out.println("Invalid choice. Try again.");
+                System.out.println("Invalid choice.Please try again.");
                 continue;
             }
 
@@ -88,7 +88,7 @@ public class TicketSystemCLI {
                 case 6:
                     return;
                 default:
-                    System.out.println("Invalid action. Try again.");
+                    System.out.println("Invalid action. Please try again.");
             }
         }
     }

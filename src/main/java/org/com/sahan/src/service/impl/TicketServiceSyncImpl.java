@@ -4,9 +4,6 @@ package org.com.sahan.src.service.impl;
 import org.com.sahan.src.model.TicketPoolSync;
 import org.com.sahan.src.service.TicketService;
 
-/**
- * Service implementation using synchronized methods.
- */
 public class TicketServiceSyncImpl implements TicketService {
     private final TicketPoolSync pool;
 

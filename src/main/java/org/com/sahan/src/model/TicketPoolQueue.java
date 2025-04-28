@@ -3,9 +3,6 @@ package org.com.sahan.src.model;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * TicketPoolQueue simulates a simple thread-safe queue behavior manually.
- */
 public class TicketPoolQueue {
     private final Queue<String> tickets;
     private final int maxCapacity;

@@ -10,9 +10,6 @@ import org.com.sahan.src.thread.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * SimulationManager handles creation and management of threads.
- */
 public class SimulationManager {
     private final TicketService service;
     private final List<Thread> producers = new ArrayList<>();

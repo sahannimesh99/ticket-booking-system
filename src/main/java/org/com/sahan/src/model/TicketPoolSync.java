@@ -3,9 +3,6 @@ package org.com.sahan.src.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TicketPoolSync uses intrinsic locks (synchronized) to protect shared resources.
- */
 public class TicketPoolSync {
     private final List<String> tickets;
     private final int maxCapacity;

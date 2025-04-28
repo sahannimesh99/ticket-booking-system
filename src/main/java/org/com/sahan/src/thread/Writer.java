@@ -3,9 +3,8 @@ package org.com.sahan.src.thread;
 
 import org.com.sahan.src.service.TicketService;
 
-/**
- * Writer adds tickets with a different ticket range to simulate separate activity.
- */
+
+// Writer adds tickets with a different ticket range to simulate separate activity.
 public class Writer implements Runnable {
     private final TicketService service;
     private volatile boolean running = true;
