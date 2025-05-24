@@ -1,6 +1,5 @@
 package org.com.sahan.src.manager;
 
-
 import org.com.sahan.src.service.TicketService;
 import org.com.sahan.src.thread.Consumer;
 import org.com.sahan.src.thread.Producer;
@@ -12,10 +11,18 @@ import java.util.List;
 
 public class SimulationManager {
     private final TicketService service;
-    private final List<Thread> producers = new ArrayList<>();
-    private final List<Thread> consumers = new ArrayList<>();
-    private final List<Thread> readers = new ArrayList<>();
-    private final List<Thread> writers = new ArrayList<>();
+
+    private final List<Producer> producerTasks = new ArrayList<>();
+    private final List<Thread> producerThreads = new ArrayList<>();
+
+    private final List<Consumer> consumerTasks = new ArrayList<>();
+    private final List<Thread> consumerThreads = new ArrayList<>();
+
+    private final List<Reader> readerTasks = new ArrayList<>();
+    private final List<Thread> readerThreads = new ArrayList<>();
+
+    private final List<Writer> writerTasks = new ArrayList<>();
+    private final List<Thread> writerThreads = new ArrayList<>();
 
     public SimulationManager(TicketService service) {
         this.service = service;
@@ -24,33 +31,52 @@ public class SimulationManager {
     public void addProducer() {
         Producer producer = new Producer(service);
         Thread thread = new Thread(producer);
-        producers.add(thread);
+        producerTasks.add(producer);
+        producerThreads.add(thread);
         thread.start();
     }
 
     public void addConsumer() {
         Consumer consumer = new Consumer(service);
         Thread thread = new Thread(consumer);
-        consumers.add(thread);
+        consumerTasks.add(consumer);
+        consumerThreads.add(thread);
         thread.start();
     }
 
     public void addReader() {
         Reader reader = new Reader(service);
         Thread thread = new Thread(reader);
-        readers.add(thread);
+        readerTasks.add(reader);
+        readerThreads.add(thread);
         thread.start();
     }
 
     public void addWriter() {
         Writer writer = new Writer(service);
         Thread thread = new Thread(writer);
-        writers.add(thread);
+        writerTasks.add(writer);
+        writerThreads.add(thread);
         thread.start();
     }
 
     public void showStatus() {
         System.out.println("[SimulationManager] Current available tickets: " + service.getAvailableTickets());
     }
-}
 
+    public void stopAllThreads() {
+        System.out.println("[SimulationManager] Stopping all threads...");
+
+        for (Producer p : producerTasks) p.stop();
+        for (Consumer c : consumerTasks) c.stop();
+        for (Reader r : readerTasks) r.stop();
+        for (Writer w : writerTasks) w.stop();
+
+        for (Thread t : producerThreads) t.interrupt();
+        for (Thread t : consumerThreads) t.interrupt();
+        for (Thread t : readerThreads) t.interrupt();
+        for (Thread t : writerThreads) t.interrupt();
+
+        System.out.println("[SimulationManager] All threads have been signaled to stop.");
+    }
+}

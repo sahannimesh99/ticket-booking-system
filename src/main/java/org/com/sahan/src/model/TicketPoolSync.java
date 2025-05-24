@@ -13,30 +13,37 @@ public class TicketPoolSync {
     }
 
     public synchronized void addTicket(String ticket) {
-        if (tickets.size() < maxCapacity) {
-            tickets.add(ticket);
-            System.out.println("[Sync] Ticket added: " + ticket);
-        } else {
-            System.out.println("[Sync] Ticket pool full. Cannot add ticket: " + ticket);
+        while (tickets.size() >= maxCapacity) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
+
+        tickets.add(ticket);
+        System.out.println("[Sync] Ticket added: " + ticket);
+        notifyAll();
     }
 
     public synchronized String buyTicket() {
-        if (!tickets.isEmpty()) {
-            String ticket = tickets.remove(0);
-            System.out.println("[Sync] Ticket bought: " + ticket);
-            return ticket;
-        } else {
-            System.out.println("[Sync] No tickets available to buy.");
-            return null;
+        while (tickets.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return null;
+            }
         }
+
+        String ticket = tickets.remove(0);
+        System.out.println("[Sync] Ticket bought: " + ticket);
+        notifyAll();
+        return ticket;
     }
 
     public synchronized int getAvailableTickets() {
         return tickets.size();
-    }
-
-    public synchronized List<String> getSnapshot() {
-        return new ArrayList<>(tickets);
     }
 }

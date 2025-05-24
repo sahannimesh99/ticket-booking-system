@@ -13,21 +13,33 @@ public class TicketPoolQueue {
     }
 
     public synchronized void addTicket(String ticket) {
-        if (tickets.size() < maxCapacity) {
-            tickets.offer(ticket);
-            System.out.println("[Queue] Ticket added: " + ticket);
-        } else {
-            System.out.println("[Queue] Ticket pool full. Cannot add ticket: " + ticket);
+        while (tickets.size() >= maxCapacity) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
+
+        tickets.offer(ticket);
+        System.out.println("[Queue] Ticket added: " + ticket);
+        notifyAll();
     }
 
     public synchronized String buyTicket() {
-        String ticket = tickets.poll();
-        if (ticket != null) {
-            System.out.println("[Queue] Ticket bought: " + ticket);
-        } else {
-            System.out.println("[Queue] No tickets available to buy.");
+        while (tickets.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return null;
+            }
         }
+
+        String ticket = tickets.poll();
+        System.out.println("[Queue] Ticket bought: " + ticket);
+        notifyAll();
         return ticket;
     }
 
